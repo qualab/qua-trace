@@ -1,0 +1,14 @@
+#pragma once
+
+#if !defined(_WINDOWS) || defined(qua_trace_static)
+#   define qua_trace_public
+#elif defined(qua_trace_build)
+#   define qua_trace_public __declspec(dllexport)
+#else
+#   define qua_trace_public __declspec(dllimport)
+#endif
+
+namespace
+{
+    class call;
+}

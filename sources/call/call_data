@@ -1,0 +1,25 @@
+#pragma once
+
+#include <qua/trace/call>
+#include <string>
+
+namespace qua
+{
+    namespace trace
+    {
+        class call::data
+        {
+        public:
+            data(const wchar_t* name, const wchar_t* file, long long line);
+
+            const wchar_t* get_name() const;
+            const wchar_t* get_file() const;
+            long long get_line() const;
+
+        private:
+            std::wstring m_name;
+            std::wstring m_file;
+            long long m_line;
+        };
+    }
+}

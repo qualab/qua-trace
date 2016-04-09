@@ -1,0 +1,28 @@
+// trace of call stack
+
+#pragma once
+
+#include <qua/trace/export>
+#include <cstdint>
+
+namespace qua
+{
+    namespace trace
+    {
+        class qua_trace_public stack
+        {
+        public:
+            static call& get_call(std::uint32_t offset = 0);
+
+        private:
+            stack();
+            stack(const stack&);
+            stack(stack&&);
+
+            void push(const call& new_call);
+            void pop();
+
+            friend class call;
+        };
+    }
+}

@@ -1,0 +1,38 @@
+#pragma once
+
+#include <qua/trace/export>
+#include <memory>
+
+namespace qua
+{
+    namespace trace
+    {
+        class qua_trace_public call
+        {
+        public:
+            call(const wchar_t* name, const wchar_t* file, long long line);
+            ~call();
+
+            const wchar_t* get_name() const;
+            const wchar_t* get_file() const;
+            long long get_line() const;
+            
+            class data;
+            class stack;
+
+        private:
+            std::shared_ptr<data> m_data;
+        };
+
+        class qua_trace_public call::stack
+        {
+        public:
+            static const call& get_call(size_t offset = 0);
+
+        private:
+            stack();
+            stack(stack&&);
+            stack(const stack&);
+        };
+    }
+}
