@@ -5,7 +5,7 @@ namespace qua
 {
     namespace trace
     {
-        call::call(const wchar_t* name, const wchar_t* file, long long line)
+        call::call(const char* name, const char* file, long long line)
             : m_data(std::make_shared<call::data>(name, file, line))
         {
             data::get_calls().push_front(*this);
@@ -16,12 +16,12 @@ namespace qua
             data::get_calls().pop_front();
         }
 
-        const wchar_t* call::get_name() const
+        const char* call::get_name() const
         {
             return m_data->get_name();
         }
 
-        const wchar_t* call::get_file() const
+        const char* call::get_file() const
         {
             return m_data->get_file();
         }
