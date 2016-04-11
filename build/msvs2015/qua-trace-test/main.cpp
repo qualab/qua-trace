@@ -6,8 +6,8 @@ void show_last_traced(const char* expected_name, const char* expected_file,
 {
     auto& call = qua::trace::call::stack::get_call();
     std::cout << "Current call:\n"
-        " > File: " << call.get_file() << " (expected: '" << expected_file << "');\n"
-        " > Function: " << call.get_name() << " (expected: '" << expected_name << "');\n"
+        " > File: '" << call.get_file() << "' (expected: '" << expected_file << "');\n"
+        " > Function: '" << call.get_name() << "' (expected: '" << expected_name << "');\n"
         " > Line: " << call.get_line() << "(expected: " << expected_line << ")\n"
         << std::endl;
 
@@ -16,7 +16,7 @@ void show_last_traced(const char* expected_name, const char* expected_file,
 void inner()
 {
     QUA_TRACE_CALL; long long same_line = __LINE__;
-    show_last_traced(__func__, __FILE__, __LINE__);
+    show_last_traced(__func__, __FILE__, same_line);
 }
 
 int main(int argc, char* argv[])
