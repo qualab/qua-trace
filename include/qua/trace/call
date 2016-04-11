@@ -17,10 +17,11 @@ namespace qua
             const wchar_t* get_file() const;
             long long get_line() const;
             
-            class data;
             class stack;
 
         private:
+            class data;
+
             std::shared_ptr<data> m_data;
         };
 

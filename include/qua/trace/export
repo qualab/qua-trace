@@ -8,7 +8,10 @@
 #   define qua_trace_public __declspec(dllimport)
 #endif
 
-namespace
+namespace qua
 {
-    class call;
+    namespace trace
+    {
+        class call;
+    }
 }

@@ -5,20 +5,15 @@ namespace qua
 {
     namespace trace
     {
-        namespace
-        {
-            thread_local std::deque<call> tl_call_stack;
-        }
-
         call::call(const wchar_t* name, const wchar_t* file, long long line)
             : m_data(std::make_shared<call::data>(name, file, line))
         {
-            tl_call_stack.push_front(*this);
+            data::get_calls().push_front(*this);
         }
 
         call::~call()
         {
-            tl_call_stack.pop_front();
+            data::get_calls().pop_front();
         }
 
         const wchar_t* call::get_name() const
@@ -38,11 +33,12 @@ namespace qua
 
         const call& call::stack::get_call(size_t offset)
         {
-            if (tl_call_stack.empty())
+            size_t num_of_calls = data::get_calls().size();
+            if (!num_of_calls)
                 throw std::length_error("No call stack initialized for current thread to trace.");
-            if (offset >= tl_call_stack.size())
+            if (offset >= num_of_calls)
                 throw std::out_of_range("Unable to get call with offset specified from call stack.");
-            return tl_call_stack[offset];
+            return data::get_calls()[offset];
         }
     }
 }

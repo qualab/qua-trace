@@ -2,6 +2,7 @@
 
 #include <qua/trace/call>
 #include <string>
+#include <deque>
 
 namespace qua
 {
@@ -15,6 +16,8 @@ namespace qua
             const wchar_t* get_name() const;
             const wchar_t* get_file() const;
             long long get_line() const;
+
+            static std::deque<call>& get_calls();
 
         private:
             std::wstring m_name;
