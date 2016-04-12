@@ -17,8 +17,6 @@ namespace qua
             const char* get_file() const;
             long long get_line() const;
 
-            static std::deque<call>& get_calls();
-
         private:
             std::string m_name;
             std::string m_file;

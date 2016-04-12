@@ -23,11 +23,5 @@ namespace qua
         {
             return m_line;
         }
-
-        std::deque<call>& call::data::get_calls()
-        {
-            static thread_local std::deque<call> tl_calls;
-            return tl_calls;
-        }
     }
 }

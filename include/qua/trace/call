@@ -3,8 +3,6 @@
 #include <qua/trace/export>
 #include <memory>
 
-#define QUA_TRACE_CALL  ::qua::trace::call _qua_trace_call(__func__, __FILE__, __LINE__)
-
 namespace qua
 {
     namespace trace
@@ -20,6 +18,7 @@ namespace qua
             long long get_line() const;
             
             class stack;
+            class warden;
 
         private:
             class data;
@@ -31,11 +30,32 @@ namespace qua
         {
         public:
             static const call& get_call(size_t offset = 0);
+            static call::warden push(const call& new_call);
 
         private:
+            // static methods only
             stack();
             stack(stack&&);
             stack(const stack&);
         };
+
+        class qua_trace_public call::warden
+        {
+        public:
+            warden();
+            warden(warden&& temporary);
+            ~warden();
+
+        private:
+            bool m_pop;
+
+            // not allowed to copy
+            warden(const warden&);
+        };
     }
 }
+
+#define QUA_TRACE_CALL  \
+    ::qua::trace::call::warden _call_warden = \
+        ::qua::trace::call::stack::push( \
+            ::qua::trace::call(__func__, __FILE__, __LINE__))
