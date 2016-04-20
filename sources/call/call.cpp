@@ -1,4 +1,4 @@
-/// Implementation of class call methods
+п»ї/// Implementation of class call methods
 
 #include "call_data"
 
@@ -29,4 +29,4 @@ namespace trace
     }
 }
 
-/// @author Владимир Керимов
+/// @author Р’Р»Р°РґРёРјРёСЂ РљРµСЂРёРјРѕРІ

@@ -1,4 +1,4 @@
-/// Declaration of internal class of trace call data
+п»ї/// Declaration of internal class of trace call data
 
 #pragma once
 
@@ -24,4 +24,4 @@ namespace trace
     };
 }
 
-/// @author Владимир Керимов
+/// @author Р’Р»Р°РґРёРјРёСЂ РљРµСЂРёРјРѕРІ

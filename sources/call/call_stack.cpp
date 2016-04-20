@@ -1,4 +1,4 @@
-/// Implementation of call stack internal mechanisms
+п»ї/// Implementation of call stack internal mechanisms
 
 #include "call_stack"
 #include <stdexcept>
@@ -151,4 +151,4 @@ namespace trace
     }
 }
 
-/// @author Владимир Керимов
+/// @author Р’Р»Р°РґРёРјРёСЂ РљРµСЂРёРјРѕРІ
