@@ -1,4 +1,4 @@
-/// @file <trace/export>
+п»ї/// @file <trace/export>
 /// Export settings and forward declarations
 
 #pragma once
@@ -16,4 +16,4 @@ namespace trace
     class call;
 }
 
-/// @author ‚ладимир Љеримов
+/// @author Р’Р»Р°РґРёРјРёСЂ РљРµСЂРёРјРѕРІ

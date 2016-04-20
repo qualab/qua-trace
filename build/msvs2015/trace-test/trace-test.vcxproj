@@ -147,10 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="trace-test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\qua-trace\qua-trace.vcxproj">
+    <ProjectReference Include="..\trace\trace.vcxproj">
       <Project>{d7761ab2-7318-4e71-9589-47bbd080bda4}</Project>
     </ProjectReference>
   </ItemGroup>

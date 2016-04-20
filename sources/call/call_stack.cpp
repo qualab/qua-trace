@@ -7,7 +7,7 @@ namespace trace
 {
     namespace
     {
-        // internal storage of calls to work as call stack
+        // thread local storage of traced calls
         thread_local call_storage tl_calls;
     }
 
