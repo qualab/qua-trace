@@ -9,7 +9,7 @@ namespace trace
 {
     typedef std::deque<call> call_storage;
 
-    class call::stack::const_iterator::data
+    class call::stack::iterator::data
     {
     public:
         typedef call_storage::const_iterator value_type;

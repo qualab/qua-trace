@@ -34,10 +34,10 @@ namespace trace
         static call::warden push(const call& new_call);
         static size_t size();
 
-        class const_iterator;
+        class iterator;
 
-        static const_iterator begin();
-        static const_iterator end();
+        static iterator begin();
+        static iterator end();
 
     private:
         // static methods only
@@ -46,29 +46,29 @@ namespace trace
         stack(const stack&);
     };
 
-    class TRACE_PUBLIC call::stack::const_iterator
+    class TRACE_PUBLIC call::stack::iterator
     {
     public:
         class data;
 
-        const_iterator(data&& new_data);
-        const_iterator(const const_iterator& another);
-        const_iterator(const_iterator&& temporary);
-        ~const_iterator();
+        iterator(data&& new_data);
+        iterator(const iterator& another);
+        iterator(iterator&& temporary);
+        ~iterator();
 
-        const_iterator& operator ++ ();
-        const_iterator& operator -- ();
+        iterator& operator ++ ();
+        iterator& operator -- ();
 
-        const_iterator operator ++ (int);
-        const_iterator operator -- (int);
+        iterator operator ++ (int);
+        iterator operator -- (int);
 
-        const_iterator operator + (size_t delta) const;
-        const_iterator operator - (size_t delta) const;
+        iterator operator + (size_t delta) const;
+        iterator operator - (size_t delta) const;
 
-        size_t operator - (const const_iterator& another) const;
+        size_t operator - (const iterator& another) const;
 
-        const_iterator& operator += (size_t delta);
-        const_iterator& operator -= (size_t delta);
+        iterator& operator += (size_t delta);
+        iterator& operator -= (size_t delta);
 
     private:
         data* m_data;
