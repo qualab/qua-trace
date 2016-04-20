@@ -23,9 +23,15 @@
     <ClCompile Include="..\..\..\sources\call\call_data.cpp">
       <Filter>call</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\sources\call\call_stack.cpp">
+      <Filter>call</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\call\call_data">
+      <Filter>call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\call\call_stack">
       <Filter>call</Filter>
     </ClInclude>
   </ItemGroup>

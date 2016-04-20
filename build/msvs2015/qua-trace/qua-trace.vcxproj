@@ -156,9 +156,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\call\call.cpp" />
     <ClCompile Include="..\..\..\sources\call\call_data.cpp" />
+    <ClCompile Include="..\..\..\sources\call\call_stack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\call\call_data" />
+    <ClInclude Include="..\..\..\sources\call\call_stack" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
