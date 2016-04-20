@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qua/trace/export>
+#include <trace/export>
 #include <memory>
 
 namespace qua

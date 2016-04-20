@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <None Include="..\..\..\include\qua\trace\call">
-      <Filter>call</Filter>
-    </None>
-    <None Include="..\..\..\include\qua\trace\export">
-      <Filter>export</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="call">
       <UniqueIdentifier>{01d72071-d57f-4db4-a150-39fcfffdaa80}</UniqueIdentifier>
     </Filter>
@@ -34,5 +26,13 @@
     <ClInclude Include="..\..\..\sources\call\call_stack">
       <Filter>call</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\trace\export">
+      <Filter>export</Filter>
+    </None>
+    <None Include="..\..\..\include\trace\call">
+      <Filter>call</Filter>
+    </None>
   </ItemGroup>
 </Project>

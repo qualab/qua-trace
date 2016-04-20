@@ -150,10 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\..\include\qua\trace\call" />
-    <None Include="..\..\..\include\qua\trace\export" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\sources\call\call.cpp" />
     <ClCompile Include="..\..\..\sources\call\call_data.cpp" />
     <ClCompile Include="..\..\..\sources\call\call_stack.cpp" />
@@ -161,6 +157,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\call\call_data" />
     <ClInclude Include="..\..\..\sources\call\call_stack" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\trace\call" />
+    <None Include="..\..\..\include\trace\export" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

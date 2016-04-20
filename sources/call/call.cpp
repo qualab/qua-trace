@@ -1,5 +1,4 @@
 #include "call_data"
-#include <deque>
 
 namespace qua
 {
