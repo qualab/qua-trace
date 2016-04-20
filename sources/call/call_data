@@ -1,26 +1,27 @@
+/// Declaration of internal class of trace call data
+
 #pragma once
 
 #include <trace/call>
 #include <string>
 #include <deque>
 
-namespace qua
+namespace trace
 {
-    namespace trace
+    class call::data
     {
-        class call::data
-        {
-        public:
-            data(const char* name, const char* file, long long line);
+    public:
+        data(const char* name, const char* file, long long line);
 
-            const char* get_name() const;
-            const char* get_file() const;
-            long long get_line() const;
+        const char* get_name() const;
+        const char* get_file() const;
+        long long get_line() const;
 
-        private:
-            std::string m_name;
-            std::string m_file;
-            long long m_line;
-        };
-    }
+    private:
+        std::string m_name;
+        std::string m_file;
+        long long m_line;
+    };
 }
+
+/// @author Владимир Керимов

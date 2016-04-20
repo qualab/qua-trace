@@ -1,17 +1,19 @@
+/// @file <trace/export>
+/// Export settings and forward declarations
+
 #pragma once
 
-#if !defined(_WINDOWS) || defined(qua_trace_static)
-#   define qua_trace_public
-#elif defined(qua_trace_build)
-#   define qua_trace_public __declspec(dllexport)
+#if !defined(_WINDOWS) || defined(TRACE_STATIC)
+#   define TRACE_PUBLIC
+#elif defined(TRACE_BUILD)
+#   define TRACE_PUBLIC __declspec(dllexport)
 #else
-#   define qua_trace_public __declspec(dllimport)
+#   define TRACE_PUBLIC __declspec(dllimport)
 #endif
 
-namespace qua
+namespace trace
 {
-    namespace trace
-    {
-        class call;
-    }
+    class call;
 }
+
+/// @author Владимир Керимов

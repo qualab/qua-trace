@@ -1,26 +1,27 @@
+/// Declaration of internal class of call stack constant iterator data
+
 #pragma once
 
 #include <trace/call>
 #include <deque>
 
-namespace qua
+namespace trace
 {
-    namespace trace
+    typedef std::deque<call> call_storage;
+
+    class call::stack::const_iterator::data
     {
-        typedef std::deque<call> call_storage;
+    public:
+        typedef call_storage::const_iterator value_type;
 
-        class call::stack::const_iterator::data
-        {
-        public:
-            typedef call_storage::const_iterator value_type;
+        data(value_type value);
 
-            data(value_type value);
+        value_type get_value() const;
+        value_type& get_reference();
 
-            value_type get_value() const;
-            value_type& get_reference();
-
-        private:
-            value_type m_value;
-        };
-    }
+    private:
+        value_type m_value;
+    };
 }
+
+/// @author Владимир Керимов
