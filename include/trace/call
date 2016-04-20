@@ -1,4 +1,4 @@
-/// @file <trace/call>
+п»ї/// @file <trace/call>
 /// Call trace and call stack overview instruments
 
 #pragma once
@@ -97,4 +97,4 @@ namespace trace
         ::trace::call::stack::push( \
             ::trace::call(__func__, __FILE__, __LINE__))
 
-/// @author Владимир Керимов
+/// @author Р’Р»Р°РґРёРјРёСЂ РљРµСЂРёРјРѕРІ
