@@ -4,7 +4,6 @@
 
 #include <trace/call>
 #include <string>
-#include <deque>
 
 namespace trace
 {

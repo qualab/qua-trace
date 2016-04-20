@@ -2,6 +2,7 @@
 
 #include "call_stack"
 #include <stdexcept>
+#include <algorithm>
 
 namespace trace
 {
@@ -29,6 +30,11 @@ namespace trace
     size_t call::stack::size()
     {
         return tl_calls.size();
+    }
+
+    void call::stack::each(const call::stack::handler_type& handler)
+    {
+        std::for_each(tl_calls.begin(), tl_calls.end(), handler);
     }
 
     call::stack::iterator call::stack::begin()
@@ -78,6 +84,18 @@ namespace trace
     call::stack::iterator::~iterator()
     {
         m_data->~data();
+    }
+
+    call::stack::iterator& call::stack::iterator::operator = (const call::stack::iterator& another)
+    {
+        m_data->get_reference() = another.m_data->get_value();
+        return *this;
+    }
+
+    call::stack::iterator& call::stack::iterator::operator = (call::stack::iterator&& temporary)
+    {
+        m_data->get_reference() = std::move(temporary.m_data->get_reference());
+        return *this;
     }
 
     call::stack::iterator& call::stack::iterator::operator ++ ()
@@ -133,6 +151,51 @@ namespace trace
     {
         m_data->get_reference() -= delta;
         return *this;
+    }
+
+    bool call::stack::iterator::operator == (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() == another.m_data->get_value();
+    }
+
+    bool call::stack::iterator::operator != (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() != another.m_data->get_value();
+    }
+
+    bool call::stack::iterator::operator <= (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() <= another.m_data->get_value();
+    }
+
+    bool call::stack::iterator::operator >= (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() >= another.m_data->get_value();
+    }
+
+    bool call::stack::iterator::operator < (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() < another.m_data->get_value();
+    }
+
+    bool call::stack::iterator::operator > (const call::stack::iterator& another) const
+    {
+        return m_data->get_value() > another.m_data->get_value();
+    }
+
+    const call& call::stack::iterator::operator * () const
+    {
+        return *m_data->get_value();
+    }
+
+    const call& call::stack::iterator::operator [] (int offset) const
+    {
+        return m_data->get_value()[offset];
+    }
+
+    const call* call::stack::iterator::operator -> () const
+    {
+        return &*m_data->get_value();
     }
 
     call::stack::iterator::data::data(call::stack::iterator::data::value_type value)

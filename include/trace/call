@@ -4,6 +4,8 @@
 #pragma once
 
 #include <trace/export>
+#include <functional>
+#include <iterator>
 #include <memory>
 
 namespace trace
@@ -34,6 +36,10 @@ namespace trace
         static call::warden push(const call& new_call);
         static size_t size();
 
+        typedef std::function<void(const call&)> handler_type;
+
+        static void each(const handler_type& handler);
+
         class iterator;
 
         static iterator begin();
@@ -46,7 +52,7 @@ namespace trace
         stack(const stack&);
     };
 
-    class TRACE_PUBLIC call::stack::iterator
+    class TRACE_PUBLIC call::stack::iterator : public std::iterator<std::random_access_iterator_tag, call>
     {
     public:
         class data;
@@ -55,6 +61,9 @@ namespace trace
         iterator(const iterator& another);
         iterator(iterator&& temporary);
         ~iterator();
+
+        iterator& operator = (const iterator& another);
+        iterator& operator = (iterator&& temporary);
 
         iterator& operator ++ ();
         iterator& operator -- ();
@@ -69,6 +78,19 @@ namespace trace
 
         iterator& operator += (size_t delta);
         iterator& operator -= (size_t delta);
+
+        bool operator == (const iterator& another) const;
+        bool operator != (const iterator& another) const;
+        bool operator <= (const iterator& another) const;
+        bool operator >= (const iterator& another) const;
+        bool operator <  (const iterator& another) const;
+        bool operator >  (const iterator& another) const;
+
+        const call* operator -> () const;
+
+        const call& operator * () const;
+
+        const call& operator [] (int offset) const;
 
     private:
         data* m_data;
