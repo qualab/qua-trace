@@ -9,10 +9,6 @@ namespace trace
     {
     }
 
-    call::~call()
-    {
-    }
-
     const char* call::get_name() const
     {
         return m_data->get_name();

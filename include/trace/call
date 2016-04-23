@@ -1,5 +1,10 @@
-﻿/// @file <trace/call>
-/// Call trace and call stack overview instruments
+﻿// Public header: <trace/call>
+// call trace and call stack overview instruments
+// header includes:
+// * call::stack to store traced calls
+// * call to store single traced call
+// * call::warden returned from call::stack::push() for auto-pop
+// * call::stack::iterator to access traced calls in call::stack
 
 #pragma once
 
@@ -10,11 +15,15 @@
 
 namespace trace
 {
+    // Public class: trace::call
+    // call storage to trace in call stack
+    // use __func__, __FILE__, __LINE__
+    // to specify origination point at first line of function
+
     class TRACE_PUBLIC call
     {
     public:
         call(const char* name, const char* file, long long line);
-        ~call();
 
         const char* get_name() const;
         const char* get_file() const;
@@ -28,6 +37,11 @@ namespace trace
 
         std::shared_ptr<data> m_data;
     };
+
+    // Public class: trace::call::stack
+    // call stack storage to emulate traced call stack
+    // support iterators and each() method to access calls
+    // use push() method and keep call::warden alive until scope ends
 
     class TRACE_PUBLIC call::stack
     {
@@ -52,7 +66,13 @@ namespace trace
         stack(const stack&);
     };
 
-    class TRACE_PUBLIC call::stack::iterator : public std::iterator<std::random_access_iterator_tag, call>
+    // Public class: trace::call::stack::iterator
+    // call stack iterator for read-only access traced calls in stack
+    // use static methods begin() and end() of call::stack class
+    // iterators supports all random access iterator operations
+
+    class TRACE_PUBLIC call::stack::iterator
+        : public std::iterator<std::random_access_iterator_tag, call>
     {
     public:
         class data;
@@ -98,6 +118,13 @@ namespace trace
         char m_storage[max_data_size];
     };
 
+    // Public class: call::warden
+    // must be created by call::stack::push() only
+    // push() operation must has a pair call of pop()
+    // desctructor of call::warden make pop() inside
+    // keep alive warden to the end of function scope
+    // use TRACE_CALL at first line of function body
+
     class TRACE_PUBLIC call::warden
     {
     public:
@@ -114,9 +141,15 @@ namespace trace
     };
 }
 
+// Public macro: TRACE_CALL
+// for automatic push and pop into call::stack current call
+// use this at a single line of function
+// current call will be pushed to call::stack
+// call::warden must be stored to the end of function scope
+
 #define TRACE_CALL  \
     ::trace::call::warden _call_warden = \
         ::trace::call::stack::push( \
             ::trace::call(__func__, __FILE__, __LINE__))
 
-/// @author Владимир Керимов
+// Unicode sign: Владимир Керимов

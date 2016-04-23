@@ -1,7 +1,13 @@
-﻿/// @file <trace/export>
-/// Export settings and forward declarations
+﻿// Public header: <trace/export>
+// export settings to use module functionality
 
 #pragma once
+
+// Public macro: TRACE_PUBLIC
+// use for declaration of public classes and functions
+// to export/import switch for use from dinamic-link libraries
+// requires TRACE_BUILD macro on trace project build on Windows
+// requires TRACE_STATIC macro on build of static-link library
 
 #if !defined(_WINDOWS) || defined(TRACE_STATIC)
 #   define TRACE_PUBLIC
@@ -11,9 +17,4 @@
 #   define TRACE_PUBLIC __declspec(dllimport)
 #endif
 
-namespace trace
-{
-    class call;
-}
-
-/// @author Владимир Керимов
+// Unicode sign: Владимир Керимов
