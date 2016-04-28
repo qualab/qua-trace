@@ -25,4 +25,4 @@ namespace trace
     }
 }
 
-/// @author Владимир Керимов
+// Unicode signature: Владимир Керимов

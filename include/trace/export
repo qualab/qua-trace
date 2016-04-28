@@ -17,4 +17,4 @@
 #   define TRACE_PUBLIC __declspec(dllimport)
 #endif
 
-// Unicode sign: Владимир Керимов
+// Unicode signature: Владимир Керимов

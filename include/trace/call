@@ -1,10 +1,10 @@
 ﻿// Public header: <trace/call>
 // call trace and call stack overview instruments
 // header includes:
-// * call::stack to store traced calls
-// * call to store single traced call
-// * call::warden returned from call::stack::push() for auto-pop
-// * call::stack::iterator to access traced calls in call::stack
+// * trace::call to store single traced call
+// * trace::call::stack to handle traced calls as a call stack
+// * trace::call::warden returned from trace::call::stack::push() for auto-pop
+// * trace::call::stack::iterator to access traced calls in call::stack
 
 #pragma once
 
@@ -152,4 +152,4 @@ namespace trace
         ::trace::call::stack::push( \
             ::trace::call(__func__, __FILE__, __LINE__))
 
-// Unicode sign: Владимир Керимов
+// Unicode signature: Владимир Керимов
