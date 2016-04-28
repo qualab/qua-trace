@@ -14,7 +14,6 @@ void show_last_traced(const char* expected_name, const char* expected_file,
         " > Function: '" << call.get_name() << "' (expected: '" << expected_name << "');\n"
         " > Line: " << call.get_line() << " (expected: " << expected_line << ")\n"
         << std::endl;
-
 }
 
 void show_call_stack()
