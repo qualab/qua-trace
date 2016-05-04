@@ -33,8 +33,10 @@ namespace trace
         class warden;
 
     private:
+        // std::string v/s unicode::text container inside
         class data;
 
+        // good when unable to change object after creation
         std::shared_ptr<data> m_data;
     };
 
@@ -113,7 +115,11 @@ namespace trace
         const call& operator [] (int offset) const;
 
     private:
+        // in-place data being created by placement new
         data* m_data;
+
+        // be sure that incapsulated iterator able to be stored 
+        // in reserved buffer of this size specified below:
         static const size_t max_data_size = 16;
         char m_storage[max_data_size];
     };
@@ -128,15 +134,23 @@ namespace trace
     class TRACE_PUBLIC call::warden
     {
     public:
+        // able to be passed through the real call stack
         warden(warden&& temporary);
+
+        // main method is destructor
         ~warden();
 
     private:
+        // switch is needed to pop on destructor
         bool m_pop;
 
+        // able to be created inside call::stack
         warden();
+
+        // has no body: unable to copy
         warden(const warden&);
 
+        // call::stack manage creation 
         friend class call::stack;
     };
 }
