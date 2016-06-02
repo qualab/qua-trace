@@ -154,6 +154,8 @@
     <ClCompile Include="..\..\..\sources\call\call.cpp" />
     <ClCompile Include="..\..\..\sources\call\call_data.cpp" />
     <ClCompile Include="..\..\..\sources\call\call_stack.cpp" />
+    <ClCompile Include="..\..\..\sources\scope\scope.cpp" />
+    <ClCompile Include="..\..\..\sources\scope\scope_data.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\call\call_data" />
@@ -162,6 +164,8 @@
   <ItemGroup>
     <None Include="..\..\..\include\trace\call" />
     <None Include="..\..\..\include\trace\export" />
+    <None Include="..\..\..\include\trace\scope" />
+    <None Include="..\..\..\sources\scope\scope_data" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

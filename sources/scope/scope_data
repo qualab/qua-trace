@@ -1,0 +1,33 @@
+﻿/// Declaration of internal class of trace scope data
+
+#pragma once
+
+#include <trace/scope>
+#include <map>
+
+namespace trace
+{
+    class scope::data
+    {
+    public:
+        data(scope& self); // for global scope only!
+        data(scope& self, scope& owner, const std::string& name);
+
+        const std::string& get_name() const;
+        const std::string& get_file() const;
+        const std::string& get_full_name() const;
+
+              scope& get_owner();
+        const scope& get_owner() const;
+
+    private:
+        scope& m_self;
+        scope& m_owner;
+        std::string m_name;
+        std::string m_path;
+        std::string m_full_name;
+        std::map<std::string, std::string> m_inner;
+    };
+}
+
+// Unicode signature: Владимир Керимов

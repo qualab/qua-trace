@@ -7,6 +7,9 @@
     <Filter Include="export">
       <UniqueIdentifier>{7f4287d7-785a-454c-b37f-f101147f299a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scope">
+      <UniqueIdentifier>{b095456d-c299-4057-8dba-683f94534954}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\call\call.cpp">
@@ -17,6 +20,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\sources\call\call_stack.cpp">
       <Filter>call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\scope\scope.cpp">
+      <Filter>scope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\scope\scope_data.cpp">
+      <Filter>scope</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +42,12 @@
     </None>
     <None Include="..\..\..\include\trace\call">
       <Filter>call</Filter>
+    </None>
+    <None Include="..\..\..\include\trace\scope">
+      <Filter>scope</Filter>
+    </None>
+    <None Include="..\..\..\sources\scope\scope_data">
+      <Filter>scope</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -1,0 +1,62 @@
+﻿// Public header: <trace/scope>
+
+#pragma once
+
+#include <trace/export>
+#include <functional>
+#include <memory>
+#include <string>
+#include <map>
+
+namespace trace
+{
+    class TRACE_PUBLIC scope
+    {
+    public:
+        explicit scope(const std::string& name);
+        scope(scope& owner, const std::string& name);
+
+        static scope& global();
+        static scope& local();
+
+        const std::string& get_name() const;
+        const std::string& get_path() const;
+        const std::string& get_full_name() const;
+
+              scope& get_owner();
+        const scope& get_owner() const;
+
+        typedef std::map<std::string, scope> inner_scope;
+        typedef inner_scope::const_iterator const_iterator;
+        typedef inner_scope::iterator iterator;
+
+              inner_scope& get_inner_scope();
+        const inner_scope& get_inner_scope() const;
+
+        const_iterator begin() const;
+        const_iterator end() const;
+
+        iterator begin();
+        iterator end();
+
+        const_iterator cbegin() const;
+        const_iterator cend() const;
+
+        size_t size() const;
+
+        typedef std::function<void(const scope&)> const_scope_handler;
+        typedef std::function<void(scope&)> scope_handler;
+
+        void each(const const_scope_handler& handler) const;
+        void each(const scope_handler& handler);
+
+    private:
+        scope(); // for global scope only
+
+        class data;
+
+        std::shared_ptr<data> m_data;
+    };
+}
+
+// Unicode signature: Владимир Керимов
