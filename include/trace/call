@@ -8,162 +8,34 @@
 
 #pragma once
 
-#include <trace/export>
-#include <functional>
-#include <iterator>
-#include <memory>
+#include <trace/scope>
+#include <cstdint>
+#include <string>
 
-namespace trace
+QUA_TRACE_BEGIN
+
+// Public class: trace::call
+// call storage to trace in call stack
+// use __func__, __FILE__, __LINE__
+// to specify origination point at first line of function
+
+class QUA_TRACE_PUBLIC call : public scope
 {
-    // Public class: trace::call
-    // call storage to trace in call stack
-    // use __func__, __FILE__, __LINE__
-    // to specify origination point at first line of function
+public:
+    call(const std::string&  name,
+         const std::string&  file,
+               std::uint64_t line);
 
-    class TRACE_PUBLIC call
-    {
-    public:
-        call(const char* name, const char* file, long long line);
+    const std::string&  get_file() const;
+          std::uint64_t get_line() const;
 
-        const char* get_name() const;
-        const char* get_file() const;
-        long long get_line() const;
+private:
+    std::string   m_file;
+    std::uint64_t m_line;
+};
 
-        class stack;
-        class warden;
+#define QUA_TRACE_CALL QUA_TRACE::call(__func__, __FILE__, __LINE__)
 
-    private:
-        // std::string v/s unicode::text container inside
-        class data;
-
-        // good when unable to change object after creation
-        std::shared_ptr<data> m_data;
-    };
-
-    // Public class: trace::call::stack
-    // call stack storage to emulate traced call stack
-    // support iterators and each() method to access calls
-    // use push() method and keep call::warden alive until scope ends
-
-    class TRACE_PUBLIC call::stack
-    {
-    public:
-        static const call& get_call(size_t offset = 0);
-        static call::warden push(const call& new_call);
-        static size_t size();
-
-        typedef std::function<void(const call&)> handler_type;
-
-        static void each(const handler_type& handler);
-
-        class iterator;
-
-        static iterator begin();
-        static iterator end();
-
-    private:
-        // static methods only
-        stack();
-        stack(stack&&);
-        stack(const stack&);
-    };
-
-    // Public class: trace::call::stack::iterator
-    // call stack iterator for read-only access traced calls in stack
-    // use static methods begin() and end() of call::stack class
-    // iterators supports all random access iterator operations
-
-    class TRACE_PUBLIC call::stack::iterator
-        : public std::iterator<std::random_access_iterator_tag, call>
-    {
-    public:
-        class data;
-
-        iterator(data&& new_data);
-        iterator(const iterator& another);
-        iterator(iterator&& temporary);
-        ~iterator();
-
-        iterator& operator = (const iterator& another);
-        iterator& operator = (iterator&& temporary);
-
-        iterator& operator ++ ();
-        iterator& operator -- ();
-
-        iterator operator ++ (int);
-        iterator operator -- (int);
-
-        iterator operator + (size_t delta) const;
-        iterator operator - (size_t delta) const;
-
-        size_t operator - (const iterator& another) const;
-
-        iterator& operator += (size_t delta);
-        iterator& operator -= (size_t delta);
-
-        bool operator == (const iterator& another) const;
-        bool operator != (const iterator& another) const;
-        bool operator <= (const iterator& another) const;
-        bool operator >= (const iterator& another) const;
-        bool operator <  (const iterator& another) const;
-        bool operator >  (const iterator& another) const;
-
-        const call* operator -> () const;
-
-        const call& operator * () const;
-
-        const call& operator [] (int offset) const;
-
-    private:
-        // in-place data being created by placement new
-        data* m_data;
-
-        // be sure that incapsulated iterator able to be stored 
-        // in reserved buffer of this size specified below:
-        static const size_t max_data_size = 16;
-        char m_storage[max_data_size];
-    };
-
-    // Public class: call::warden
-    // must be created by call::stack::push() only
-    // push() operation must has a pair call of pop()
-    // desctructor of call::warden make pop() inside
-    // keep alive warden to the end of function scope
-    // use TRACE_CALL at first line of function body
-
-    class TRACE_PUBLIC call::warden
-    {
-    public:
-        // able to be passed through the real call stack
-        warden(warden&& temporary);
-
-        // main method is destructor
-        ~warden();
-
-    private:
-        // switch is needed to pop on destructor
-        bool m_pop;
-
-        // able to be created inside call::stack
-        warden();
-
-        // has no body: unable to copy
-        warden(const warden&);
-
-        // call::stack manage creation 
-        friend class call::stack;
-    };
-}
-
-// Public macro: TRACE_CALL
-// for automatic push and pop into call::stack current call
-// use this at a single line of function
-// current call will be pushed to call::stack
-// call::warden must be stored to the end of function scope
-
-#define TRACE_CALL  \
-    ::trace::call::warden _call_warden = \
-        ::trace::call::stack::push( \
-            ::trace::call(__func__, __FILE__, __LINE__))
+QUA_TRACE_END
 
 // Unicode signature: Владимир Керимов

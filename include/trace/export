@@ -9,12 +9,32 @@
 // requires TRACE_BUILD macro on trace project build on Windows
 // requires TRACE_STATIC macro on build of static-link library
 
-#if !defined(_WINDOWS) || defined(TRACE_STATIC)
-#   define TRACE_PUBLIC
-#elif defined(TRACE_BUILD)
-#   define TRACE_PUBLIC __declspec(dllexport)
+#if !defined(_WINDOWS) || defined(QUA_TRACE_STATIC)
+#   define QUA_TRACE_PUBLIC
+#elif defined(QUA_TRACE_BUILD)
+#   define QUA_TRACE_PUBLIC __declspec(dllexport)
 #else
-#   define TRACE_PUBLIC __declspec(dllimport)
+#   define QUA_TRACE_PUBLIC __declspec(dllimport)
 #endif
+
+#ifdef QUA_NAMESPACE
+#   define QUA_TRACE        qua::trace
+#   define QUA_TRACE_BEGIN  namespace qua { namespace trace {
+#   define QUA_TRACE_END    } }
+#else
+#   define QUA_TRACE        trace
+#   define QUA_TRACE_BEGIN  namespace trace {
+#   define QUA_TRACE_END    }
+#endif
+
+// forward declaration of all exported classes
+
+QUA_TRACE_BEGIN
+
+class call;
+class scope;
+class stack;
+
+QUA_TRACE_END
 
 // Unicode signature: Владимир Керимов

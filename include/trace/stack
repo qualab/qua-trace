@@ -1,0 +1,34 @@
+﻿// Public header: <trace/scope>
+
+#pragma once
+
+#include <trace/scope>
+#include <functional>
+#include <iterator>
+#include <deque>
+
+QUA_TRACE_BEGIN
+
+// Public class: trace::stack
+// call stack storage to emulate traced call stack
+// support iterators and each() method to access calls
+// push() returns scope object keep it alive until scope ends
+
+class QUA_TRACE_PUBLIC stack
+{
+public:
+    stack();
+
+    static stack& local();
+
+    const call& top() const;
+    size_t size();
+
+    size_t length();
+
+private:
+};
+
+QUA_TRACE_END
+
+// Unicode signature: Владимир Керимов

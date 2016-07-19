@@ -4,59 +4,69 @@
 
 #include <trace/export>
 #include <functional>
-#include <memory>
 #include <string>
 #include <map>
 
-namespace trace
+QUA_TRACE_BEGIN
+
+class QUA_TRACE_PUBLIC scope
 {
-    class TRACE_PUBLIC scope
-    {
-    public:
-        explicit scope(const std::string& name);
-        scope(scope& owner, const std::string& name);
+public:
+    explicit scope(const std::string& name);
+    scope(scope& owner, const std::string& name);
 
-        static scope& global();
-        static scope& local();
+    static scope& global();
 
-        const std::string& get_name() const;
-        const std::string& get_path() const;
-        const std::string& get_full_name() const;
+    const std::string& get_name() const;
+    const std::string& get_path() const;
+    const std::string& get_full_name() const;
 
-              scope& get_owner();
-        const scope& get_owner() const;
+          scope& get_owner();
+    const scope& get_owner() const;
 
-        typedef std::map<std::string, scope> inner_scope;
-        typedef inner_scope::const_iterator const_iterator;
-        typedef inner_scope::iterator iterator;
+    typedef std::map<std::string, scope> container;
+    typedef container::iterator iterator;
+    typedef container::const_iterator const_iterator;
+    typedef container::reverse_iterator reverse_iterator;
+    typedef container::const_reverse_iterator const_reverse_iterator;
 
-              inner_scope& get_inner_scope();
-        const inner_scope& get_inner_scope() const;
+          container& get_all();
+    const container& get_all() const;
 
-        const_iterator begin() const;
-        const_iterator end() const;
+          scope& get_scope(const std::string& name);
+    const scope& get_scope(const std::string& name) const;
 
-        iterator begin();
-        iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
 
-        const_iterator cbegin() const;
-        const_iterator cend() const;
+    iterator begin();
+    iterator end();
 
-        size_t size() const;
+    const_reverse_iterator rbegin() const;
+    const_reverse_iterator rend() const;
 
-        typedef std::function<void(const scope&)> const_scope_handler;
-        typedef std::function<void(scope&)> scope_handler;
+    reverse_iterator rbegin();
+    reverse_iterator rend();
 
-        void each(const const_scope_handler& handler) const;
-        void each(const scope_handler& handler);
+    const_iterator cbegin() const;
+    const_iterator cend() const;
 
-    private:
-        scope(); // for global scope only
+    size_t size() const;
 
-        class data;
+    typedef std::function<void(const scope&)> const_scope_handler;
+    typedef std::function<void(scope&)> scope_handler;
 
-        std::shared_ptr<data> m_data;
-    };
-}
+    void each(const const_scope_handler& handler) const;
+    void each(const scope_handler& handler);
+
+private:
+    scope(); // for global scope only
+
+    class data;
+
+    std::shared_ptr<data> m_data;
+};
+
+QUA_TRACE_END
 
 // Unicode signature: Владимир Керимов

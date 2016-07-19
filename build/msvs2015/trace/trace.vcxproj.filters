@@ -10,31 +10,9 @@
     <Filter Include="scope">
       <UniqueIdentifier>{b095456d-c299-4057-8dba-683f94534954}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\sources\call\call.cpp">
-      <Filter>call</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\sources\call\call_data.cpp">
-      <Filter>call</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\sources\call\call_stack.cpp">
-      <Filter>call</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\sources\scope\scope.cpp">
-      <Filter>scope</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\sources\scope\scope_data.cpp">
-      <Filter>scope</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\sources\call\call_data">
-      <Filter>call</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\sources\call\call_stack">
-      <Filter>call</Filter>
-    </ClInclude>
+    <Filter Include="stack">
+      <UniqueIdentifier>{f1132dd7-39bd-4a72-907d-42c7d7280f30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\trace\export">
@@ -46,8 +24,19 @@
     <None Include="..\..\..\include\trace\scope">
       <Filter>scope</Filter>
     </None>
-    <None Include="..\..\..\sources\scope\scope_data">
-      <Filter>scope</Filter>
+    <None Include="..\..\..\include\trace\stack">
+      <Filter>stack</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\sources\call.cpp">
+      <Filter>call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\scope.cpp">
+      <Filter>scope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\stack.cpp">
+      <Filter>stack</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
