@@ -1,23 +1,41 @@
-﻿/// Implementation of trace scope
+﻿// <trace/scope> implementation
 
-#include "scope_data"
+#include <trace/scope>
 #include <deque>
 
 QUA_TRACE_BEGIN
 
-scope::scope(const std::string& name)
-    : m_data(std::make_shared<scope::data>(*this, global(), name))
+namespace
 {
+    const std::string SCOPE_GLOBAL_NAME = "";
+    const std::string SCOPE_GLOBAL_PATH = "";
+}
+
+scope::scope(const std::string& name)
+    : m_name(name), m_owner(global())
+{
+    m_owner.add_child(*this);
 }
 
 scope::scope(scope& owner, const std::string& name)
-    : m_data(std::make_shared<scope::data>(*this, owner, name))
+    : m_name(name), m_owner(owner)
 {
+    m_owner.add_child(*this);
 }
 
 scope::scope()
-    : m_data(std::make_shared<scope::data>(*this)) // global scope
+    : m_name(SCOPE_GLOBAL_NAME), m_owner(*this)
 {
+    m_owner.add_child(*this); // global scope contain itself
+}
+
+void scope::add_child(scope& child)
+{
+    const std::string& name = child.get_name();
+    auto found = m_map.find(name);
+    if (found != m_map.end())
+        throw name_conflict(*this, name);
+    m_map.insert(name, child);
 }
 
 scope& scope::global()
@@ -26,11 +44,14 @@ scope& scope::global()
     return s_global;
 }
 
-scope& scope::local()
+const std::string& scope::get_name() const
 {
-    if (scope_stack.empty())
-        scope_stack.push_back(global());
-    return scope_stack.back();
+    return m_name;
+}
+
+const std::string& scope::get_path() const
+{
+    return m_path;
 }
 
 QUA_TRACE_END

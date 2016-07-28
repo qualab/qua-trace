@@ -1,0 +1,29 @@
+﻿#include <trace/export>
+#include <exception>
+#include <string>
+
+QUA_TRACE_BEGIN
+
+class QUA_TRACE_PUBLIC exception : public std::exception
+{
+public:
+    explicit exception(const std::string& message)
+        : m_message(message)
+    {
+    }
+
+    const std::string& get_message() const
+    {
+        return m_message;
+    }
+
+    const char* what() const
+    {
+        return m_message.c_str();
+    }
+
+private:
+    std::string m_message;
+};
+
+QUA_TRACE_END

@@ -24,9 +24,8 @@ public:
     const call& top() const;
     size_t size();
 
-    size_t length();
-
 private:
+    call* m_call;
 };
 
 QUA_TRACE_END

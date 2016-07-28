@@ -2,10 +2,8 @@
 
 #pragma once
 
-#include <trace/export>
-#include <functional>
-#include <string>
-#include <map>
+#include <trace/exception>
+#include <memory>
 
 QUA_TRACE_BEGIN
 
@@ -15,57 +13,64 @@ public:
     explicit scope(const std::string& name);
     scope(scope& owner, const std::string& name);
 
-    static scope& global();
+    class name_conflict;
 
-    const std::string& get_name() const;
-    const std::string& get_path() const;
-    const std::string& get_full_name() const;
+    static scope global();
 
-          scope& get_owner();
-    const scope& get_owner() const;
+    std::string get_name() const;
+    std::string get_path() const;
+    std::string get_full_name() const;
 
-    typedef std::map<std::string, scope> container;
-    typedef container::iterator iterator;
-    typedef container::const_iterator const_iterator;
-    typedef container::reverse_iterator reverse_iterator;
-    typedef container::const_reverse_iterator const_reverse_iterator;
+    scope get_owner() const;
 
-          container& get_all();
-    const container& get_all() const;
+    typedef void (*handler_type)(const scope&);
 
-          scope& get_scope(const std::string& name);
-    const scope& get_scope(const std::string& name) const;
-
-    const_iterator begin() const;
-    const_iterator end() const;
-
-    iterator begin();
-    iterator end();
-
-    const_reverse_iterator rbegin() const;
-    const_reverse_iterator rend() const;
-
-    reverse_iterator rbegin();
-    reverse_iterator rend();
-
-    const_iterator cbegin() const;
-    const_iterator cend() const;
-
-    size_t size() const;
-
-    typedef std::function<void(const scope&)> const_scope_handler;
-    typedef std::function<void(scope&)> scope_handler;
-
-    void each(const const_scope_handler& handler) const;
-    void each(const scope_handler& handler);
+    void each(handler_type handler) const;
 
 private:
-    scope(); // for global scope only
-
     class data;
 
     std::shared_ptr<data> m_data;
+
+    scope();
+    void add_child(scope& child);
 };
+
+class QUA_TRACE_PUBLIC scope::name_conflict : public exception
+{
+public:
+    name_conflict(const scope& owner, const std::string& name);
+};
+
+inline const std::string& scope::get_name() const
+{
+    return m_name;
+}
+
+inline const std::string& scope::get_path() const
+{
+    return m_path;
+}
+
+inline const std::string& scope::get_full_name() const
+{
+    return m_full_name;
+}
+
+inline const scope::map_type& scope::get_map() const
+{
+    return m_map;
+}
+
+inline scope& scope::get_owner()
+{
+    return m_owner;
+}
+
+inline const scope& scope::get_owner() const
+{
+    return m_owner;
+}
 
 QUA_TRACE_END
 
