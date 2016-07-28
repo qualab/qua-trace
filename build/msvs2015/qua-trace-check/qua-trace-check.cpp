@@ -34,14 +34,14 @@ void show_call_stack()
 
 void inner()
 {
-    TRACE_CALL; long long same_line = __LINE__;
+    QUA_TRACE_CALL; long long same_line = __LINE__;
     show_call_stack();
     show_last_traced(__func__, __FILE__, same_line);
 }
 
 void outer()
 {
-    TRACE_CALL; long long same_line = __LINE__;
+    QUA_TRACE_CALL; long long same_line = __LINE__;
     show_call_stack();
     show_last_traced(__func__, __FILE__, same_line);
     inner();
